@@ -43,6 +43,6 @@ app.get('/hi', async (req, res) => {
 
 
 
-app.listen(32, () => {
-    console.log("apps running 32");
+app.listen(80, () => {
+    console.log("apps running 80");
 })
