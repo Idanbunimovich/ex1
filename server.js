@@ -43,6 +43,6 @@ app.get('/hi', async (req, res) => {
 
 
 
-app.listen(80, () => {
-    console.log("apps running 80");
+app.listen(3000, () => {
+    console.log("apps running 3000");
 })
