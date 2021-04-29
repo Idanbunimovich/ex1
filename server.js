@@ -59,7 +59,7 @@ app.post('/exit', async (req, res) =>{
         }
     else {
             let diffHours = end.diff(data.start, 'minutes');
-            let money = diffHours / 15 * 2.5;
+            let money = Math.floor(diffHours / 15 * 2.5);
             res.json({platId: data.plateId, money, parkingLot: data.parkinLot, paid: true})
             data.paid = true
             await set(ticketId, JSON.stringify(data))
