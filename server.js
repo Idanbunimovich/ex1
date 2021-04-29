@@ -4,8 +4,9 @@ const cors = require('cors');
 const moment = require('moment')
 const redis = require('redis')
 const {promisify} = require('util')
+const host = require('./.env')
 
-let redisClient = redis.createClient({host:'demo-redis2.hh98yr.ng.0001.use1.cache.amazonaws.com',port:6379})
+let redisClient = redis.createClient({host:host,port:6379})
 
 let set = promisify(redisClient.set).bind(redisClient)
 let get = promisify(redisClient.get).bind(redisClient)
