@@ -6,7 +6,9 @@ const redis = require('redis')
 const {promisify} = require('util')
 const {host} = require('./.env')
 
+
 let redisClient = redis.createClient({host:host,port:6379})
+
 
 let set = promisify(redisClient.set).bind(redisClient)
 let get = promisify(redisClient.get).bind(redisClient)
@@ -31,7 +33,8 @@ app.post('/onBoard', async (req, res) =>{
     let data = {
         start:moment(),
         plateId:req.query.plateId,
-        parkinLot:req.query.parkingLot
+        parkinLot:req.query.parkingLot,
+        paid:false
     }
     await set(ticketId,JSON.stringify(data))
     ticketId += 1;
@@ -45,10 +48,23 @@ app.post('/exit', async (req, res) =>{
 
     let {ticketId} = (req.query)
     let end = moment();
-    let data = JSON.parse(await get(ticketId))
-    let diffHours = end.diff(data.start, 'hours');
-    let money = diffHours*10;
-    res.json({platId: data.plateId,money,parkingLot:data.parkinLot})
+    let data = await get(ticketId)
+    if (data === null){
+        res.json('no such ticket exits')
+    }
+    else {
+        data = JSON.parse(data)
+        if (data.paid === true) {
+            res.json('ticket is paid already')
+        }
+    else {
+            let diffHours = end.diff(data.start, 'minutes');
+            let money = diffHours / 15 * 2.5;
+            res.json({platId: data.plateId, money, parkingLot: data.parkinLot, paid: true})
+            data.paid = true
+            await set(ticketId, JSON.stringify(data))
+        }
+    }
 
 });
 
