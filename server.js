@@ -4,7 +4,7 @@ const cors = require('cors');
 const moment = require('moment')
 const redis = require('redis')
 const {promisify} = require('util')
-const host = require('./.env')
+const {host} = require('./.env')
 
 let redisClient = redis.createClient({host:host,port:6379})
 
