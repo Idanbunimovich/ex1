@@ -46,7 +46,7 @@ app.post('/exit', async (req, res) =>{
     let {ticketId} = (req.query)
     let end = moment();
     let data = JSON.parse(await get(ticketId))
-    let diffHours = end.diff(data.start, 'seconds');
+    let diffHours = end.diff(data.start, 'hours');
     let money = diffHours*10;
     res.json({platId: data.plateId,money,parkingLot:data.parkinLot})
 
