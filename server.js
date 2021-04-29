@@ -6,9 +6,9 @@ const redis = require('redis')
 const {promisify} = require('util')
 
 let redisClient = redis.createClient({host:'demo-redis2.hh98yr.ng.0001.use1.cache.amazonaws.com',port:6379})
+
 let set = promisify(redisClient.set).bind(redisClient)
 let get = promisify(redisClient.get).bind(redisClient)
-
 
 const app = express();
 
@@ -50,10 +50,7 @@ app.post('/exit', async (req, res) =>{
     res.json({platId: data.plateId,money,parkingLot:data.parkinLot})
 
 });
-app.get('/hi', async (req, res) => {
 
-
-});
 
 
 
