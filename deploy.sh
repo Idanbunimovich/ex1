@@ -61,7 +61,7 @@ ssh -i $KEY_PEM -o "StrictHostKeyChecking=no" -o "ConnectionAttempts=10" ubuntu@
     curl -fsSL https://deb.nodesource.com/setup_15.x | sudo -E bash -
     sudo apt install nodejs -y
     sudo apt install git -y
-    sudo yum install redis -y
+    sudo apt install redis -y
     git clone https://github.com/Idanbunimovich/ex1.git
     cd ex1
     redis-server &
